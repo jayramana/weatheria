@@ -70,6 +70,7 @@ dark.addEventListener("click", () => {
   document.querySelectorAll(".feels").forEach((e) => {
     e.style.color = "white";
   });
+  document.querySelector(".time").style.color = "white";
 
   console.log(theme);
 });
