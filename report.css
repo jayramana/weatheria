@@ -1,0 +1,87 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Roboto";
+    color: white;
+  }
+  .int {
+    padding-left: 2rem;
+    padding-top: 2rem;
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+  }
+  .login {
+    height: 100vh;
+    width: 100%;
+    background-image: url("space3.jpg");
+    max-width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .contents {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(5px);
+    gap: 1rem;
+  }
+  
+  .inp {
+    display: flex;
+    gap: 0.8rem;
+    flex-direction: column;
+  }
+  
+  .dup {
+    padding: 3rem;
+  }
+  input {
+    height: 40px;
+    border-radius: 11px;
+    background-color: #f1f3f5;
+    border: 0;
+    color: black;
+    width: 500px;
+  }
+  input::placeholder {
+    padding-left: 1rem;
+  }
+  .style {
+    color: #212529;
+    padding: 0.5rem 2rem;
+  
+  }
+  .style:hover {
+    color: white;
+  }
+  button {
+    border-radius: 11px;
+    border: 0;
+    margin-top: 2rem;
+    transition: all 0.4s;
+  }
+  button:hover {
+    background-color: black;
+  }
+  textarea {
+    width: 100%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
+  }
+  

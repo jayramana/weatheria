@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Weather App</title>
+    <title>Weatheria</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,13 +26,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
   </head>
   <body id="content">
-    <!-- <video class="video" loop muted autoplay playsinline>
-      <source src="CLOUDS FOREVER.mp4" class="sorc" />
-    </video> -->
+   
     <header class="web-head">
       <nav class="nav-bar">
         <div class="name">
           <p class="nme" id="nam">Weatheria</p>
+          <img src="weather-forecast.png" alt="" class="collage">
         </div>
         <div class="nav-tags">
           <ul class="tgs">
@@ -40,11 +39,28 @@
               <ion-icon name="moon-outline" id="moon"></ion-icon
               ><ion-icon name="sunny-outline" id="sun"></ion-icon>
             </li>
-            <li class="tg">Home</li>
-            <li class="tg">API</li>
-            <li class="tg">Map</li>
-            <li class="tg">Report a bug</li>
-            <li class="tg">Contact</li>
+            <li class="tg"><p class="drop">
+              API</p>
+              <section class="apis">
+                <li class="flx">OpenWeather's Current Weather Data API <a href="https://openweathermap.org/current"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="arrow one">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                </svg></a>
+                </li>
+                <li class="flx">OpenWeather's Geolocation API <a href="https://openweathermap.org/api/geocoding-api"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="arrow two">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                </svg></a>
+                </li>
+                <li class="flx">OpenWeather's Air Pollution  API <a href="https://openweathermap.org/api/air-pollution"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="arrow two">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                </svg></a>
+                </li>
+                <l1 class="flx">API Ninja's World Time API  <a href="https://api-ninjas.com/api/worldtime"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="arrow three">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                </svg></a>
+                </li>
+              </section></li>
+            <li class="tg other report"><a href="report.html" class="anchor">Report a bug</a></li>
+            <li class="tg other contact"><a href="indexs.html" class="anchor">Contact</a></li>
           </ul>
         </div>
       </nav>
@@ -63,12 +79,14 @@
         <ion-icon name="search-outline" class="search-icon"></ion-icon>
       </div>
     </section>
+    <p class="hidea">Invalid City Name</p>
     <section class="weather-display" id="wea-dis">
       <div class="city-details">
         <div class="temps">
           <div class="city">
             <ion-icon name="location-outline" class="city-i"></ion-icon>
             <p id="city-name" class="city-n"></p>
+            <img src="" alt="sun/moon" class="mst">
           </div>
           <div class="current-temp">
             <ion-icon name="thermometer-outline"></ion-icon>
@@ -121,7 +139,7 @@
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
     ></script>
 
-    <script src="weather.js"></script>
+    <script type="module" src="weather.js"></script>
     <section class="fivedayfore">
       <div class="day">
         <p class="day-n"></p>
