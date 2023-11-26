@@ -21,6 +21,7 @@ dark.addEventListener("click", () => {
   for (let i = 0; i < lst.length; i++) {
     lst[i].style.color = "white";
   }
+  document.querySelector(".hidea").style.color = "white";
   document.getElementById("moon").style.display = "none";
   document.getElementById("sun").style.display = "block";
   document.getElementById("content").style.backgroundColor = "black";
@@ -71,12 +72,16 @@ dark.addEventListener("click", () => {
     e.style.color = "white";
   });
   document.querySelector(".time").style.color = "white";
-
+  document.querySelectorAll(".anchor").forEach((e) => {
+    e.style.color = "white";
+  });
   console.log(theme);
 });
 
 light.addEventListener("click", () => {
   light.style.display = "none";
+  document.querySelector(".hidea").style.color = "black";
+
   dark.style.display = "block";
   document.querySelectorAll(".day").forEach((e) => {
     e.addEventListener("mouseover", () => {
@@ -116,7 +121,12 @@ light.addEventListener("click", () => {
     for (let i = 0; i < 5; i++) {
       day[i].style.color = color[i];
     }
+    document.querySelector(".time").style.color = "black";
   });
+  document.querySelectorAll(".anchor").forEach((e) => {
+    e.style.color = "black";
+  });
+  console.log(theme);
 });
 
 async function fetchWeatherData(city) {
@@ -125,13 +135,15 @@ async function fetchWeatherData(city) {
 
     const response = await fetch(apiUrl);
     const data = await response.json();
-    const timestamp = data.dt; 
-    const date = new Date(timestamp * 1000); 
-    const dateStr = date.toLocaleString(); 
+    const timestamp = data.dt;
+    const date = new Date(timestamp * 1000);
+    const dateStr = date.toLocaleString();
+    date.getTime();
 
-    document.querySelector(".time").textContent = `Weather data for ${city} as of ${dateStr}`;
+    document.querySelector(
+      ".time"
+    ).textContent = `Weather data for ${city} as of ${dateStr} IST`;
 
-    // Access specific weather information
     let temperature = data.main.temp;
     let max_temp = data.main.temp_max;
     let min_temp = data.main.temp_min;
@@ -141,7 +153,6 @@ async function fetchWeatherData(city) {
     const weatherDescription = data.weather[0].description;
     document.getElementById("wea-dis").style.display = "block";
 
-    // Display the weather data in the console
     console.log(`Temperature in ${city}: ${temperature}°C`);
     console.log(`Weather in ${city}: ${weatherDescription}`);
     document.getElementById("city-name").innerText = city;
@@ -157,61 +168,79 @@ async function fetchWeatherData(city) {
     document.getElementById("min").innerText = min_temp + " °C";
     document.getElementById("max").innerText = max_temp + " °C";
   } catch (error) {
-    console.error("Error fetching weather data:", error);
+    document.querySelector(".weather-display").style.display = "none";
+    document.querySelector(".fivedayfore").style.visibility = "hidden";
+    document.querySelector(".hidea").style.display = "block";
+    document.querySelector(".time").style.display = "none";
   }
 }
+
 searchbtn.addEventListener("click", () => {
-  const city = document.querySelector(".weather-city").value;
-  console.log(city);
-  fetchWeatherData(city);
-  fdayforecast(city);
-  aqi(city);
+  try {
+    const city = document.querySelector(".weather-city").value;
+
+    document.querySelector(".hidea").style.display = "none";
+    document.querySelector(".time").style.display = "block";
+    console.log(city);
+    fetchWeatherData(city);
+    fdayforecast(city);
+    aqi(city);
+    updateTimeAndImage(city);
+  } catch (error) {
+    console.log("Naah");
+  }
 });
-6
+
 async function fdayforecast(city) {
-  let dt = new Date();
-  console.log(`${dt.getDate()}`);
-  console.log(`${dt.getMonth() + 1}`);
-  console.log(`${dt.getFullYear()}`);
-  const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`;
-  const response = await fetch(apiUrl);
-  const data = await response.json();
-  for (let i = 0; i < 5; i++) {
-    let arr = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-    ];
-    let color = [`#fab005`, `white`, `#4f3A3C`, `#DA9100`, `#3D85C6`];
-    let date = new Date();
-    let dat = (date.getDay() + i + 1) % 7;
-    let day = document.querySelectorAll(".day-n");
+  try {
+    document.querySelector(".fivedayfore").style.visibility = "visible";
 
-    day[i].textContent = arr[dat];
-    day[i].style.color = color[i];
-    console.log(i);
-    let temp = Number(data.list[i].main.temp - 273.15).toFixed(2) + "°C";
-    let icon = data.list[i].weather[0].icon;
-    console.log(icon);
+    let dt = new Date();
+    console.log(`${dt.getDate()}`);
+    console.log(`${dt.getMonth() + 1}`);
+    console.log(`${dt.getFullYear()}`);
+    const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`;
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+    for (let i = 0; i < 5; i++) {
+      let arr = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ];
+      let color = [`#fab005`, `white`, `#4f3A3C`, `#DA9100`, `#3D85C6`];
+      let date = new Date();
+      let dat = (date.getDay() + i + 1) % 7;
+      let day = document.querySelectorAll(".day-n");
 
-    let desIconElements = document.querySelectorAll(".des-icon");
-    let weadis = document.querySelectorAll(".description");
-    let tempc = document.querySelectorAll(".feels");
+      day[i].textContent = arr[dat];
+      day[i].style.color = color[i];
+      console.log(i);
+      let temp = Number(data.list[i].main.temp - 273.15).toFixed(2) + "°C";
+      let icon = data.list[i].weather[0].icon;
+      console.log(icon);
 
-    if (desIconElements[i] && weadis[i] && tempc[i]) {
-      weadis[i].textContent = data.list[i].weather[0].description;
-      desIconElements[
-        i
-      ].src = `https://openweathermap.org/img/wn/${icon}@2x.png`;
-      tempc[i].textContent = temp;
+      let desIconElements = document.querySelectorAll(".des-icon");
+      let weadis = document.querySelectorAll(".description");
+      let tempc = document.querySelectorAll(".feels");
+
+      if (desIconElements[i] && weadis[i] && tempc[i]) {
+        weadis[i].textContent = data.list[i].weather[0].description;
+        desIconElements[
+          i
+        ].src = `https://openweathermap.org/img/wn/${icon}@2x.png`;
+        tempc[i].textContent = temp;
+      }
+      document.querySelectorAll(".day").forEach((e) => {
+        e.style.display = "block";
+      });
     }
-    document.querySelectorAll(".day").forEach((e) => {
-      e.style.display = "block";
-    });
+  } catch (error) {
+    console.log("aaaha");
   }
 }
 
@@ -243,5 +272,43 @@ async function aqi(city) {
   }
 }
 
-// const windy = `WC68eoqoGtUir0ouj9mNCFGTuQI13KAK`;
-// const news = 80bc50b5c2a34c178bb124447346dc47
+async function Timezone(city) {
+  const api = `f9VUC/7qBvkfdsTXyQEn3w==9vkKArQkCaGVBdTl`;
+  const turl = `https://api.api-ninjas.com/v1/worldtime?X-Api-Key=${api}&city=${city}`;
+  const resp = await fetch(turl);
+  const datat = await resp.json();
+  const time = `${datat.hour}${datat.minute}`;
+  console.log(time);
+  return time;
+}
+
+async function updateTimeAndImage(city) {
+  const time = await Timezone(city);
+
+  // Assuming the time is a string like "1200"
+  const numericTime = parseInt(time, 10);
+
+  let sunOrMoon = document.querySelector(".mst");
+
+  if (numericTime >= 600 && numericTime <= 1800) {
+    // Daytime (6:00 AM to 6:00 PM)
+    sunOrMoon.src = "sun.gif";
+  } else {
+    // Nighttime
+    sunOrMoon.src = "moon.gif";
+  }
+  console.log(numericTime);
+}
+
+document.querySelector(".drop").addEventListener("mouseover", () => {
+  document.querySelector(".apis").style.visibility = "visible";
+});
+// document.querySelector(".apis").addEventListener("mouseover", () => {
+//   document.querySelector(".apis").style.visibility = "visible";
+// })
+document.querySelector(".apis").addEventListener("mouseover", () => {
+  document.querySelector(".apis").style.visibility = "visible";
+});
+document.querySelector(".other").addEventListener("mouseover", () => {
+  document.querySelector(".apis").style.visibility = "hidden";
+});
