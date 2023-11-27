@@ -251,7 +251,7 @@ async function aqi(city) {
   let lat = data[0].lat;
   let lon = data[0].lon;
   console.log(lat, lon);
-  const aqiurl = `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+  const aqiurl = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`;
   const res = await fetch(aqiurl);
   const data1 = await res.json();
   let aqi = data1.list[0].main.aqi;
