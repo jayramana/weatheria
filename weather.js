@@ -245,7 +245,7 @@ async function fdayforecast(city) {
 }
 
 async function aqi(city) {
-  const geourl = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${apiKey}`;
+  const geourl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${apiKey}`;
   const response = await fetch(geourl);
   const data = await response.json();
   let lat = data[0].lat;
